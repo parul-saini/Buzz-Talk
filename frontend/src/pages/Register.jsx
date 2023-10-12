@@ -86,7 +86,7 @@ function Register() {
     <>
       <div className="container-register" style={{}}>
       
-        <Row>
+        <Row style={{margin:"0px"}}>
           <Col lg="5" s="12">
             <div className="brandName" style={{
               height:" 100vh",

@@ -25,6 +25,30 @@ module.exports.register = async(req,res,next)=>{
     return res.json({ status: true , newuser});  
         
     } catch (error) {
+      console.log("error coming",error)
         next(error);
     }   
+};
+
+module.exports.login = async (req, res, next) => {
+  try {
+    const { userName, password } = req.body;
+    // Check if the user already exists
+    const existingUser = await user.findOne({ userName });
+    if (!existingUser) {
+      return res.json({ msg: "Incorrect Username or Password", status: false });
+    }
+    
+    const isPasswordValid = await bcrypt.compare(password.toString(), existingUser.password);
+    if (!isPasswordValid) {
+      return res.json({ msg: "Incorrect Username or Password", status: false });
+    }
+    
+    // Don't return the password
+    delete existingUser.password;
+    
+    return res.json({ status: true, user: existingUser });
+  } catch (error) {
+    next(error);
+  }
 };
