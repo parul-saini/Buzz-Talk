@@ -1,30 +1,28 @@
 import React, { useState } from 'react'
-import styled from 'styled-components';
-import {Link} from "react-router-dom";
+// import styled from 'styled-components';
+import {Link, useNavigate} from "react-router-dom";
 import logo from "../assests/logo.png"
-import { Row, Col, Toast} from 'react-bootstrap';
+import { Row, Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { registerRouter } from '../utils/ApiRoutes';
+
 
 function Register() {
-  const [values ,setValues]= useState({
+  const [values,setValues]= useState({
   userName:"",
   email:"",
   password:"",
   confirmPassword:""
   });
 
-  const  handleChange=(event)=>{
-    setValues({...values, [event.target.name]:[event.target.value]});
-  }
+  const navigate = useNavigate();
 
-  const handleEvent=(event)=>{
-    event.preventDefault();
-    if(handleValidation() === true) {
-      alert("form submit");
-    }
+  const  handleChange=(event)=>{
+    setValues({...values, [event.target.name]: event.target.value});
   }
 
   // CSS of toast 
@@ -38,6 +36,27 @@ function Register() {
     progress: undefined,
     theme:"light"
   }
+  
+  const handleEvent= async(event)=>{
+    event.preventDefault();
+    if(handleValidation()) {
+      const {userName,email,password,confirmPassword} = values;
+      const {data} = await axios.post(registerRouter,{
+        userName,
+        email,
+        password
+      });
+      
+      if(data.status === false )
+      toast.error(data.msg, toastCSS);
+
+      if(data.status === true)
+      navigate("/");
+
+    }
+  }
+
+
 
   // check the input fields before submitting the form 
   const handleValidation=()=>{
@@ -85,21 +104,21 @@ function Register() {
           <Form onSubmit={(event)=>{handleEvent(event)}}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>User Name <sup>*</sup></Form.Label>
-              <Form.Control type="text" placeholder="User name" value={values.userName} name='userName' onChange={(e)=>{handleChange(e)}}/>
+              <Form.Control type="text" placeholder="User name"  name='userName' onChange={(e)=>{handleChange(e)}}/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address <sup>*</sup></Form.Label>
-              <Form.Control type="email" placeholder="Enter email" value={values.email}  name='email' onChange={(e)=>{handleChange(e)}}/>
+              <Form.Control type="email" placeholder="Enter email"  name='email' onChange={(e)=>{handleChange(e)}}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password <sup>*</sup></Form.Label>
-              <Form.Control type="password" placeholder="Password" value={values.password} name='password'  onChange={(e)=>{handleChange(e)}}/>
+              <Form.Control type="password" placeholder="Password"  name='password'  onChange={(e)=>{handleChange(e)}}/>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Confirm Password <sup>*</sup></Form.Label>
-              <Form.Control type="password" placeholder="Confirm Password" value={values.confirmPassword}  name='confirmPassword' onChange={(e)=>{handleChange(e)}}/>
+              <Form.Control type="password" placeholder="Confirm Password" name='confirmPassword' onChange={(e)=>{handleChange(e)}}/>
             </Form.Group>
     
             <Button  style={{ backgroundColor: '#017dc0', color: 'white' }} variant="primary" type="submit">
