@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import styled from 'styled-components';
 import {Link, useNavigate} from "react-router-dom";
 import logo from "../assests/logo.png"
@@ -20,6 +20,10 @@ function Register() {
   });
 
   const navigate = useNavigate();
+
+  useEffect(()=>{
+     
+  },[])
 
   const  handleChange=(event)=>{
     setValues({...values, [event.target.name]: event.target.value});

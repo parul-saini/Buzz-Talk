@@ -7,6 +7,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Chat from './pages/Chat';
+import SetAvtaar from './pages/SetAvtaar';
 
 
 
@@ -14,9 +15,10 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<Chat/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/' element={<Chat/>}/>
+        <Route path='/setavtaar' element={<SetAvtaar/>}/>
       </Routes>
     </BrowserRouter>
   )
