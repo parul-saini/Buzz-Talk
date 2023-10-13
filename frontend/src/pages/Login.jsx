@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
+import React, { useState,useEffect } from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import logo from "../assests/logo.png"
-import { Row, Col, Toast} from 'react-bootstrap';
+import { Row, Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,6 +15,11 @@ function Register() {
   password:"",
   });
   const navigate = useNavigate();
+  
+  useEffect(()=>{
+    if( localStorage.getItem('chat-app-current-user')) 
+      navigate('/')
+  },[])
 
   const  handleChange=(event)=>{
     setValues({...values, [event.target.name]:[event.target.value]});
@@ -33,9 +37,11 @@ function Register() {
       if(data.status === false )
       toast.error(data.msg, toastCSS);
 
-      if(data.status === true)
-      navigate("/");
-
+      if(data.status === true){
+        console.log(data)
+        localStorage.setItem('chat-app-current-user',JSON.stringify(data.user));
+        navigate("/");
+      }
     }
   }
   // CSS of toast 

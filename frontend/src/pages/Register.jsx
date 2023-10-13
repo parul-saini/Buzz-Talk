@@ -22,7 +22,8 @@ function Register() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-     
+    if( localStorage.getItem('chat-app-current-user'))
+      navigate('/')
   },[])
 
   const  handleChange=(event)=>{
@@ -54,8 +55,11 @@ function Register() {
       if(data.status === false )
       toast.error(data.msg, toastCSS);
 
-      if(data.status === true)
-      navigate("/");
+      if(data.status === true){
+        console.log(data)
+        localStorage.setItem('chat-app-current-user',JSON.stringify(data.newuser));
+        navigate("/");
+      }
 
     }
   }

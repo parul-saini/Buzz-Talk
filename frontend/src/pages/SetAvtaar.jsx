@@ -70,7 +70,7 @@ const SetAvtaar = () => {
                 {  avtaar.map((avatar, index)=>{
                 return(
                 <div key={index} className={`avatar ${selectedAvataar === index? "selected" :" " }`}>
-                    <img src={`data:image/svg+xml;base64,${avatar}`} alt="" onClick={()=> setSelectAvtaar(index)}/>
+                    <img src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" onClick={()=> setSelectAvtaar(index)}/>
                 </div>
                 )   
                 })
