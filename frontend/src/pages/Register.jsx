@@ -62,6 +62,11 @@ function Register() {
         localStorage.setItem("chat-app-user",JSON.stringify(data.user));
         navigate("/");
       }
+      if(data.status === true){
+        console.log(data)
+        localStorage.setItem('chat-app-current-user',JSON.stringify(data.newuser));
+        navigate("/");
+      }
 
     }
   }
@@ -96,7 +101,7 @@ function Register() {
     <>
       <div className="container-register" style={{}}>
       
-        <Row>
+        <Row style={{margin:"0px"}}>
           <Col lg="5" s="12">
             <div className="brandName" style={{
               height:" 100vh",
