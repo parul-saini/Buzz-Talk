@@ -8,10 +8,13 @@ function Welcome({ currentUser }) {
     }
   }, [currentUser]);
   return (
+    <div className="align-content-around d-flex justify-content-center pe-0 ">
+
     <div className=" d-flex flex-column text-center">
         <img src={hiGif} alt="Welcome"/>
       <h1>Welcome {currentUserName}</h1>
       <h3>Please select a chat to Start Messaging</h3>
+    </div>
     </div>
   );
 }

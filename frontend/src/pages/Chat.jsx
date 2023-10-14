@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { allUserRouter } from "../utils/ApiRoutes";
-import Contacts from "./Contacts";
-import Welcome from "./Welcome";
+import Contacts from "../components/Contacts";
+import Welcome from "../components/Welcome";
+import ChatContainer from "./ChatContainer";
 const Chat = () => {
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -51,8 +52,13 @@ const Chat = () => {
             changeChat={handleChatChange}
           />
         </div>
-        <div className="align-content-around col-md-9 d-flex justify-content-center pe-0">
-          <Welcome currentUser={currentUser} />
+        <div className=" col-md-9  pe-0">
+          {
+            currentChat===undefined? 
+            <Welcome currentUser={currentUser} />:
+            <ChatContainer currentChat={currentChat}/>
+          }
+
         </div>
       </div>
     </div>
