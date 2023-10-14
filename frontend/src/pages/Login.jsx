@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { loginRouter } from '../utils/ApiRoutes';
 
-function Register() {
+function Login() {
   const [values ,setValues]= useState({
   userName:"",
   password:"",
@@ -22,7 +22,7 @@ function Register() {
   },[])
 
   const  handleChange=(event)=>{
-    setValues({...values, [event.target.name]:[event.target.value]});
+    setValues({...values, [event.target.name]:event.target.value});
   }
 
   const handleEvent= async(event)=>{
@@ -38,7 +38,7 @@ function Register() {
       toast.error(data.msg, toastCSS);
 
       if(data.status === true){
-        console.log(data)
+        //console.log(data)
         localStorage.setItem('chat-app-current-user',JSON.stringify(data.user));
         navigate("/");
       }
@@ -118,4 +118,4 @@ function Register() {
 }
 
 
-export default Register
+export default Login

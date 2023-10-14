@@ -12,9 +12,6 @@ app.use(express.json());
 
 app.use("/api/auth",useRoutes);
 
-app.get('/',(req,res)=>{
-    res.send("hello world");
-})
 
 mongoose.connect(process.env.MONGODB_URL,{
     useNewUrlParser:true,

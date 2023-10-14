@@ -32,11 +32,6 @@ const SetAvtaar = () => {
     theme:"light"
     }
 
-    useEffect(()=>{
-        if(!localStorage.getItem("chat-app-user"))
-            navigate("/register");
-        fetchData();    
-    },[])
 
     async function fetchData() {
         const data = [];
@@ -50,22 +45,29 @@ const SetAvtaar = () => {
         setIsloading(false);
     }
 
+    
+    useEffect(()=>{
+        if(!localStorage.getItem("chat-app-current-user"))
+            navigate("/register");
+        fetchData();    
+    },[])
+
    const  setProfilePic = async()=>{
     if(selectedAvataar === undefined){
         toast.error("Please select an avatar" , toastCSS);
     }
     else{
-        const user = await JSON.parse(localStorage.getItem('chat-app-user'));
+        const user = await JSON.parse(localStorage.getItem('chat-app-current-user'));
         const {data} = await axios.post(`${SetAvtaarRouter}/${user._id}`,{
           image: avtaar[selectedAvataar]
         }) ;
-        
+
         // this data come from backend 
         if(data.isSet){
           // console.log(user);
-          user.isAvtaarImageSet = true;
+          user.isAvatarImageSet = true;
           user.avataarImage = data.image;
-          localStorage.setItem('chat-app-user', JSON.stringify(user));
+          localStorage.setItem('chat-app-current-user', JSON.stringify(user));
           navigate("/");
         }
         else{

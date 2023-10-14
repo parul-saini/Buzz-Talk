@@ -21,11 +21,7 @@ const userSchema = new mongoose.Schema({
      type:Boolean,
      default:false
     },
-<<<<<<< HEAD
     avataarImage:{
-=======
-    avatar:{
->>>>>>> b2791b9e2bf87f6296c4afd2e0df68f7299a58f5
      type:String,
      default:""
     }
