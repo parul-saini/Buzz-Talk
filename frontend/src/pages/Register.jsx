@@ -21,14 +21,6 @@ function Register() {
 
   const navigate = useNavigate();
 
-  useEffect(()=>{
-     
-  },[])
-
-  const  handleChange=(event)=>{
-    setValues({...values, [event.target.name]: event.target.value});
-  }
-
   // CSS of toast 
   const toastCSS = {
     position:"top-right",
@@ -40,6 +32,17 @@ function Register() {
     progress: undefined,
     theme:"light"
   }
+
+  useEffect(()=>{
+    if(localStorage.getItem("chat-app-user"))
+        navigate("/");
+    toast.info("Please firstly registered Yourself " , toastCSS);
+  },[])
+
+  const  handleChange=(event)=>{
+    setValues({...values, [event.target.name]: event.target.value});
+  }
+
   
   const handleEvent= async(event)=>{
     event.preventDefault();
@@ -55,7 +58,10 @@ function Register() {
       toast.error(data.msg, toastCSS);
 
       if(data.status === true)
-      navigate("/");
+      { console.log(data)
+        localStorage.setItem("chat-app-user",JSON.stringify(data.user));
+        navigate("/");
+      }
 
     }
   }
