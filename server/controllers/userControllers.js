@@ -20,38 +20,34 @@ module.exports.register = async (req, res, next) => {
       password: hashedPassword,
     });
     // don't need to return the password
-    delete newuser.password;
-    return res.json({ status: true, newuser });
-  } catch (error) {
-    console.log("error coming", error);
-    next(error);
-  }
+    // delete newuser.password; (it doesn't work for mongo db obj that's why crt new obj )
+    const newuserWithoutPassword = { ...newuser._doc };
+    delete newuserWithoutPassword.password;
+    return res.json({ status: true, user: newuserWithoutPassword });     
+
+    } 
+    catch (error) {
+        next(error);
+    }   
 };
 
-module.exports.login = async (req, res, next) => {
+module.exports.setAvatar = async(req,res,next)=>{
   try {
-    const { userName, password } = req.body;
-    // Check if the user already exists
-    const existingUser = await User.findOne({ userName });
-    if (!existingUser) {
-      return res.json({ msg: "Incorrect Username or Password", status: false });
-    }
-
-    const isPasswordValid = await bcrypt.compare(
-      password.toString(),
-      existingUser.password
-    );
-    if (!isPasswordValid) {
-      return res.json({ msg: "Incorrect Username or Password", status: false });
-    }
-
-    // Don't return the password
-    delete existingUser.password;
-
-    return res.json({ status: true, user: existingUser });
-  } catch (error) {
-    next(error);
-  }
+    const userId= req.params.id;
+    const avataarImage = req.body.image;
+    const newuser = await user.findByIdAndUpdate({_id: userId},{
+      isAvtaarImageSet:true,
+      avataarImage
+    });
+   
+    return res.json({ 
+      isSet: newuser.isAvtaarImageSet , 
+      image: newuser.avataarImage
+    });  
+        
+    } catch (error) {
+        next(error);
+    }   
 };
 
 module.exports.getAllUsers = async (req, res, next) => {
