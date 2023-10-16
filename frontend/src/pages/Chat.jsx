@@ -21,10 +21,12 @@ const Chat = () => {
         navigate("/login");
       } else {
         setCurrentUser(storedUser);
-        console.log("currentUser", storedUser);
+        //console.log("currentUser", storedUser);
       }
     })();
   }, []);
+
+
   useEffect(() => {
     (async () => {
       if (currentUser) {
@@ -32,14 +34,15 @@ const Chat = () => {
           const data = await axios.get(`${allUserRouter}/${currentUser._id}`);
           // console.log(data);
           setContacts(data.data);
-        } else navigate("/setavtaar");
+        } 
+        else navigate("/setavatar");
       }
     })();
   }, [currentUser]);
-  // console.log("contact",contacts)
+  //console.log("contact",contacts)
 
   const handleChatChange = (chat) => {
-    console.log(chat);
+    // console.log(chat);
     setCurrentChat(chat);
   };
   return (

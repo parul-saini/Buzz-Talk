@@ -6,10 +6,11 @@ function Contacts({ contacts, currentUser,changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
+
   useEffect(() => {
     if (currentUser) {
       setCurrentUserName(currentUser.userName);
-      setCurrentUserImage(currentUser.avatar);
+      setCurrentUserImage(currentUser.avataarImage);
     }
   }, [currentUser]);
 
@@ -18,8 +19,8 @@ function Contacts({ contacts, currentUser,changeChat }) {
     changeChat(contact)
 
   }
- 
 
+  
   return (
     <div>
       {currentUserName && currentUserImage && (

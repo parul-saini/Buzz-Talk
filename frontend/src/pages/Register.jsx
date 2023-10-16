@@ -34,8 +34,9 @@ function Register() {
   }
 
   useEffect(()=>{
-    if(localStorage.getItem("chat-app-user"))
-        navigate("/");
+    if(localStorage.getItem("chat-app-current-user"))
+      navigate("/");
+    else
     toast.info("Please firstly registered Yourself " , toastCSS);
   },[])
 
@@ -43,7 +44,7 @@ function Register() {
     setValues({...values, [event.target.name]: event.target.value});
   }
 
-  
+ 
   const handleEvent= async(event)=>{
     event.preventDefault();
     if(handleValidation()) {
@@ -58,20 +59,13 @@ function Register() {
       toast.error(data.msg, toastCSS);
 
       if(data.status === true)
-      { console.log(data)
-        localStorage.setItem("chat-app-user",JSON.stringify(data.user));
-        navigate("/");
-      }
-      if(data.status === true){
-        console.log(data)
-        localStorage.setItem('chat-app-current-user',JSON.stringify(data.newuser));
+      {  //console.log(data)
+        localStorage.setItem("chat-app-current-user",JSON.stringify(data.user));
         navigate("/");
       }
 
     }
   }
-
-
 
   // check the input fields before submitting the form 
   const handleValidation=()=>{
@@ -101,7 +95,7 @@ function Register() {
     <>
       <div className="container-register" style={{}}>
       
-        <Row style={{margin:"0px"}}>
+        <Row>
           <Col lg="5" s="12">
             <div className="brandName" style={{
               height:" 100vh",
