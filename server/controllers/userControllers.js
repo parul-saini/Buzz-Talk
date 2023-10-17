@@ -72,7 +72,7 @@ module.exports.login = async (req, res, next) => {
 
     // Don't return the password
     delete existingUser.password;
-    console.log(existingUser);
+    //console.log(existingUser);
     return res.json({ status: true, user: existingUser });
 
   } 
