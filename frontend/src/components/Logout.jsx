@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import {GrLogout} from 'react-icons/gr'
+import {GrPower} from 'react-icons/gr'
 import { Button } from 'react-bootstrap';
 function Logout() {
     const navigate =useNavigate();
@@ -9,7 +9,7 @@ function Logout() {
         navigate('/login');
     }
   return (
-    <Button className='btn-danger' onClick={handleClick}><GrLogout style={{fontSize:"30px"}}/></Button>
+      <GrPower className="col-2"  onClick={handleClick} style={{fontSize:"20px"}}/>
   )
 }
 

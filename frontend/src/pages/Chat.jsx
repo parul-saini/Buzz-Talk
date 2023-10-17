@@ -26,7 +26,6 @@ const Chat = () => {
     })();
   }, []);
 
-
   useEffect(() => {
     (async () => {
       if (currentUser) {
@@ -34,8 +33,7 @@ const Chat = () => {
           const data = await axios.get(`${allUserRouter}/${currentUser._id}`);
           // console.log(data);
           setContacts(data.data);
-        } 
-        else navigate("/setavatar");
+        } else navigate("/setavatar");
       }
     })();
   }, [currentUser]);
@@ -46,9 +44,14 @@ const Chat = () => {
     setCurrentChat(chat);
   };
   return (
-    <div className=" bg-black text-white">
+    <div>
+    {/* <div className=" bg-black text-white"> */}
       <div className="row" style={{ height: "100vh", width: "100vw" }}>
-        <div className="col-md-3 pe-0 overflow: auto; height: 200px;">
+        <div
+          className="col-md-3 pe-0 d-flex"
+          style={{ borderRadius: "20px", background: "#EDEDED" }}
+        >
+          {/* <div className="col-md-3 pe-0 overflow: auto; height: 200px;"> */}
           <Contacts
             contacts={contacts}
             currentUser={currentUser}
@@ -56,12 +59,11 @@ const Chat = () => {
           />
         </div>
         <div className=" col-md-9  pe-0">
-          {
-            currentChat===undefined? 
-            <Welcome currentUser={currentUser} />:
-            <ChatContainer currentChat={currentChat}/>
-          }
-
+          {currentChat === undefined ? (
+            <Welcome currentUser={currentUser} />
+          ) : (
+            <ChatContainer currentChat={currentChat} />
+          )}
         </div>
       </div>
     </div>
