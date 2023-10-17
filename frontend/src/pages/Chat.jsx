@@ -5,6 +5,8 @@ import { allUserRouter } from "../utils/ApiRoutes";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import ChatContainer from "./ChatContainer";
+
+
 const Chat = () => {
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -40,9 +42,9 @@ const Chat = () => {
   //console.log("contact",contacts)
 
   const handleChatChange = (chat) => {
-    // console.log(chat);
     setCurrentChat(chat);
   };
+
   return (
     <div>
     {/* <div className=" bg-black text-white"> */}
@@ -59,15 +61,17 @@ const Chat = () => {
           />
         </div>
         <div className=" col-md-9  pe-0">
-          {currentChat === undefined ? (
+          {
+            currentChat === undefined? 
             <Welcome currentUser={currentUser} />
-          ) : (
-            <ChatContainer currentChat={currentChat} />
-          )}
+            :
+            <ChatContainer currentUser={currentUser} currentChat={currentChat} />
+          }
         </div>
       </div>
     </div>
   );
 };
+
 
 export default Chat;
