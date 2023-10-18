@@ -41,7 +41,7 @@ const ChatInput = ({handleSendMsg}) => {
 
   return (
 
-    <Container className="button-container row" style={{}}>
+    <Container className="button-container row m-0" >
         <InputGroup className=" col-12">
             <BsEmojiSmileFill onClick={handelEmojiPickerToggle} />
             {
@@ -54,7 +54,7 @@ const ChatInput = ({handleSendMsg}) => {
             value={msg}
             onChange={(e)=> setMsg(e.target.value)}
             />
-            <Button variant="outline-secondary" id="button-addon2">
+            <Button className='sendBtn' variant="outline-secondary" id="button-addon2">
                 <IoMdSend onClick={sendChat}/>
             </Button>
         </InputGroup>
@@ -66,29 +66,59 @@ const ChatInput = ({handleSendMsg}) => {
 const Container = styled.div`
     justify-content: center;
     align-items: center;
+    height: 10%;
+    background: #212529;
     .input-group{
-        background:black;
+        background:#212529;
         position: relative;
         svg{
         font-size: 2rem;
         cursor: pointer;
-        color: #dbbe14;
+        color: #806f0c;
         margin-right:10px ; 
         margin-top: 6px;
         }
         input{
-        background: black;
+        background: #212529;
         color: white;
         outline: none;
         border: none;
         font-size:20px;
+        box-shadow:none;
+        }
+        ::placeholder{
+            color:white;
         }
         aside{
             position:absolute;
             bottom:58px;
-            background:#101127
+            background:#393053;
+            .epr-search-container{
+                input{
+                    background:transparent;
+                }
+            }
+            .epr-emoji-category-label{
+                background:#d6cbde;
+            }
+            ::-webkit-scrollbar{
+                background:#393053;
+                width:15px;
+                &-thumb{
+                 background: black;
+                 height:30px;
+                 border-radius:10px
+                }
+            }
+           
         }
     } 
+    .sendBtn{
+        border:none;
+        svg{
+        color:white;
+        }
+    }
 
 ` ;
 

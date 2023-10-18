@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../assests/logo.png";
 import Logout from "./Logout";
 import styled from 'styled-components'
+import '../App.css';
 
 function Contacts({ contacts, currentUser, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -20,7 +21,13 @@ function Contacts({ contacts, currentUser, changeChat }) {
     changeChat(contact);
   };
 
-  
+  const styleComponent={
+    "overflow":"auto",
+    "height": "80vh",
+  }
+ 
+
+
   return (
     <>
     {currentUserName && currentUserImage && (
@@ -29,10 +36,9 @@ function Contacts({ contacts, currentUser, changeChat }) {
       style={{
         width: "90%",
         height: "93%",
-        background: "darkgreen",
-        borderRadius: "10px",
+        background: "#d6cbde",
+        borderRadius: "17px",
         border: "1px solid rgba(74, 74, 74, 0.51)",
-        backgroundColor: "#FFF",
       }}
     >
        
@@ -47,9 +53,9 @@ function Contacts({ contacts, currentUser, changeChat }) {
         <p
           className="col m-0 text-capitalize"
           style={{
-            color: "#000",
+            color: "black",
             fontFamily: "Roboto",
-            fontSize: "22px",
+            fontSize: "30px",
             fontStyle: "normal",
             fontWeight: "700",
             lineHeight: "normal",
@@ -66,14 +72,14 @@ function Contacts({ contacts, currentUser, changeChat }) {
           height: "80vh",
         }}
       >
-        <p>Messages</p>
+        <p style={{fontSize: "22px", fontWeight: "700"}}>Messages</p>
         {contacts.map((contact, index) => {
           return (
             <div
               className={`d-flex align-items-center m-0 overflow-y p-0 btn row border-0 ${
                 index === currentSelected ? "selected" : ""
               } `}
-              style={{ cursor: "pointer",...(index===currentSelected?{background:"#E9F7F8"}:"")}}
+              style={{ cursor: "pointer",...(index===currentSelected?{background:"rgb(102 61 133 / 27%)"}:"")}}
               key={index}
               onClick={() => changeCurrentChat(index, contact)}
             >
@@ -82,7 +88,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
                   style={{
                     width: "6px",
                     height: "75px",
-                    background: "#329A93",
+                    background: "rgb(90 39 107 / 84%)",
                   }}
                   className="p-0"
                 ></span>
@@ -103,7 +109,9 @@ function Contacts({ contacts, currentUser, changeChat }) {
                 alt="Avatar"
                 style={{ width: "50px", height: "50px" }}
                 />
-              <div className="col-9 text-capitalize text-start">
+              <div className="col-9 text-capitalize text-start" style={{  fontSize: "20px",
+                fontWeight: "600",
+                color: "black" }}>
                 {contact.userName}
               </div>
 

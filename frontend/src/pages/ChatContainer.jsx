@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Logout from "../components/Logout";
 import { Row, Col } from "react-bootstrap";
 import ChatInput from "./ChatInput";
 import Messages from "../components/Messages";
 import { sendMessagesRouter,getALLMessagesRouter } from "../utils/ApiRoutes";
 import axios from "axios";
 import styled from "styled-components";
+
 
 function ChatContainer({currentUser,currentChat}) {
    const [messages,setMessages]=useState([]); 
@@ -31,36 +31,26 @@ function ChatContainer({currentUser,currentChat}) {
 
   return (
     <>
-      <Row>
-        <div className="user-details bg-dark d-flex user-details p-1 align-items-center">
-          <Col sm="1">
-            <div className="avatar">
+    <ChatHeader className="row user-details bg-dark d-flex user-details p-1 align-items-center m-0"> 
+          <Col className="avatar" sm="1">
               {/* <img src={`data:image/svg+xml;base64,${currentChat.avatar}`} alt="avatar" /> */}
               <img
                 src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
                 className="rounded-circle"
                 alt="avatar"
-                style={{ width: "50px", height: "50px" }}
               />
-            </div>
           </Col>
-          <Col sm='10'>
-            <div className="user-name">
+          <Col className="user-name" sm='11'>
               <h3> {currentChat.userName}</h3>
-            </div>
           </Col>
-          <Col sm='1' >
-            <Logout  />
-          </Col>
-        </div>
-      </Row>
+    </ChatHeader>
 
-      <div className="chat-messages" style={{height:"80%"}}>
+      <ChatMessages className="chat-messages me-0 ms-0" >
       {
         messages.map((msg,ind)=>{
           return (
             <div key={ind}>
-              <div className={`message ${ msg.fromSelf? "sender": "recieved"}`}>
+              <div className={`message ${ (msg.fromSelf) ? "sender" : "recieved"}`}>
                 <div className="content">
                   <p>{msg.message}</p>
                 </div>
@@ -69,15 +59,64 @@ function ChatContainer({currentUser,currentChat}) {
           )
         })
       }
-      </div>
+      </ChatMessages>
     
       <ChatInput handleSendMsg={handleSendMsg} />
     </>
   );
 }
 
-const div= styled.div`
-
+const ChatHeader = styled.div`
+height: 11%;
+.avatar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:6.5%;
+  height: 4.5rem;
+  img{
+    width: 63px;
+    height: 64px;
+  }
+ }
+ .user-name{
+  color:white;
+  margin-left: 10px;
+ }
+`
+const ChatMessages = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 21%);
+    overflow: auto;
+    gap: 1rem;
+    padding: 1rem;
+    background: #d6cbde;
+    .message{
+      display: flex;
+      align-items: center;
+      .content{
+        max-width: 40%;
+        overflow-wrap: break-word;
+        padding: 0.5rem 1rem;
+        font-size: 1.1rem;
+        border-radius: 1rem;
+        color: white;
+      }
+    }
+    .sender{
+      justify-content:flex-end;
+      .content{
+        ${'' /* background:#443C68; */}
+        background:#443c68cc;
+      }
+    }
+    .recieved{
+      justify-content:flex-start;
+      .content{
+        background:#393053;
+      }
+    }
 `
 
 export default ChatContainer;

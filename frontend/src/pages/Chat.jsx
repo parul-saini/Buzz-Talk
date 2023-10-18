@@ -45,13 +45,16 @@ const Chat = () => {
     setCurrentChat(chat);
   };
 
+  const customStyles = {
+    "margin-right": "0px",
+    "margin-left": "0 !important",
+    'height': '100vh',
+  };
+
   return (
-    <div>
-    {/* <div className=" bg-black text-white"> */}
-      <div className="row" style={{ height: "100vh", width: "100vw" }}>
-        <div
-          className="col-md-3 pe-0 d-flex"
-          style={{ borderRadius: "20px", background: "#EDEDED" }}
+      <div className="row gx-0 ms-0" style={{ height: "100vh", width: "100vw" }}>
+        <div className="col-md-3 pe-0 d-flex"
+          style={{  borderRight: "1px solid white", background: " #212529" }}
         >
           {/* <div className="col-md-3 pe-0 overflow: auto; height: 200px;"> */}
           <Contacts
@@ -60,7 +63,7 @@ const Chat = () => {
             changeChat={handleChatChange}
           />
         </div>
-        <div className=" col-md-9  pe-0">
+        <div className="col-md-9 pe-0 " style={customStyles}>
           {
             currentChat === undefined? 
             <Welcome currentUser={currentUser} />
@@ -69,7 +72,7 @@ const Chat = () => {
           }
         </div>
       </div>
-    </div>
+ 
   );
 };
 
