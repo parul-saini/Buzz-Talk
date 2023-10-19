@@ -1,4 +1,4 @@
-const host = "http://localhost:9000";
+export const host = "http://localhost:9000";
 
 // user routes
 export const registerRouter = `${host}/api/auth/register`;
