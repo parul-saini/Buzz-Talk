@@ -57,7 +57,8 @@ const Chat = () => {
   const customStyles = {
     "margin-right": "0px",
     "margin-left": "0 !important",
-    height: "100vh",
+    'height': '100vh',
+    'background': '#d6cbde'
   };
 
   return (
