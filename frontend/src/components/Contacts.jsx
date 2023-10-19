@@ -36,7 +36,8 @@ function Contacts({ contacts, currentUser, changeChat }) {
       style={{
         width: "90%",
         height: "93%",
-        background: "#d6cbde",
+        // background: "#d6cbde",
+        background: "rgb(248 243 251)",
         borderRadius: "17px",
         border: "1px solid rgba(74, 74, 74, 0.51)",
       }}

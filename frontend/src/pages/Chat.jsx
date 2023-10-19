@@ -49,6 +49,7 @@ const Chat = () => {
     "margin-right": "0px",
     "margin-left": "0 !important",
     'height': '100vh',
+    'background': '#d6cbde'
   };
 
   return (
