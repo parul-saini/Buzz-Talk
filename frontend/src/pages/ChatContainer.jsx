@@ -69,7 +69,7 @@ function ChatContainer({ currentUser, currentChat, socket }) {
       <ChatMessages className="chat-messages me-0 ms-0">
         {messages.map((msg) => {
           return (
-            <div ref={scrollRef} key={uuidv4()} className={`${!msg.fromSelf ? "d-flex":""}`}>
+            <div ref={scrollRef} key={uuidv4()} className={`d-flex ${msg.fromSelf ? "sender" : "recieved"}`}>
             {
               !(msg.fromSelf) &&
             <img
@@ -85,6 +85,12 @@ function ChatContainer({ currentUser, currentChat, socket }) {
                   <p className="m-0">{msg.message}</p>
                 </div>
               </div>
+             {msg.fromSelf && <img
+            // src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
+            src={`data:image/svg+xml;base64,${currentUser.avataarImage}`}
+            className="rounded-circle align-self-center ms-1 " style={{width:"35px",height:"35px"}}
+            alt="avatar"
+          />}
             </div>
           );
         })}
