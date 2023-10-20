@@ -37,12 +37,14 @@ const ChatInput = ({handleSendMsg}) => {
         {handleSendMsg(msg);
         setMsg('');}
     }
-
+    const handleKeyPress=(e)=>{
+        if(e.code === "Enter") sendChat(e);
+    }
 
   return (
 
     <Container className="button-container row m-0" >
-        <InputGroup className=" col-12">
+        <InputGroup  onKeyDown={handleKeyPress} className=" col-12">
             <BsEmojiSmileFill onClick={handelEmojiPickerToggle} />
             {
                 ShowEmojiPicker && <Picker  onEmojiClick={handleSelectedEmoji}/>
@@ -54,8 +56,8 @@ const ChatInput = ({handleSendMsg}) => {
             value={msg}
             onChange={(e)=> setMsg(e.target.value)}
             />
-            <Button className='sendBtn' variant="outline-secondary" id="button-addon2">
-                <IoMdSend onClick={sendChat}/>
+            <Button  className='sendBtn' variant="outline-secondary" id="button-addon2">
+                <IoMdSend  onClick={sendChat}/>
             </Button>
         </InputGroup>
     </Container>

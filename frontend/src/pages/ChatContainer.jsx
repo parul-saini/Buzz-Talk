@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 import ChatInput from "./ChatInput";
 import Messages from "../components/Messages";
@@ -8,17 +8,17 @@ import styled from "styled-components";
 
 
 function ChatContainer({currentUser,currentChat}) {
-   const [messages,setMessages]=useState([]); 
-
+    const [messages,setMessages]=useState([]); 
+  
   useEffect(()=>{
-      (async()=>{
+          (async()=>{
       const response = await axios.post(getALLMessagesRouter,{
           from: currentUser._id,
           to: currentChat._id,
         })
       setMessages(response.data);  
       })();
-  },[currentChat]);
+      },[currentChat]);
 
   const handleSendMsg = async(msg)=>{
     await axios.post(sendMessagesRouter,{
@@ -26,42 +26,42 @@ function ChatContainer({currentUser,currentChat}) {
     to: currentChat._id,
     message:msg
     })
-
+    
   }
 
   return (
     <>
     <ChatHeader className="row user-details bg-dark d-flex user-details p-1 align-items-center m-0"> 
-          <Col className="avatar" sm="1">
+          <Col className="avatar pe-0" sm="1">
               {/* <img src={`data:image/svg+xml;base64,${currentChat.avatar}`} alt="avatar" /> */}
               <img
-                src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
+                src={`data:image/svg+xml;base64,${currentChat.avataarImage}`}
                 className="rounded-circle"
                 alt="avatar"
               />
           </Col>
           <Col className="user-name" sm='11'>
-              <h3> {currentChat.userName}</h3>
+              <h3 className="text-capitalize"> {currentChat.userName}</h3>
           </Col>
     </ChatHeader>
 
-      <ChatMessages className="chat-messages me-0 ms-0" >
-      {
-        messages.map((msg,ind)=>{
-          return (
-            <div key={ind}>
-              <div className={`message ${ (msg.fromSelf) ? "sender" : "recieved"}`}>
-                <div className="content">
-                  <p>{msg.message}</p>
-                </div>
+    <ChatMessages className="chat-messages me-0 ms-0" >
+    {
+      messages.map((msg,ind)=>{
+        return (
+          <div key={ind}>
+            <div className={`message ${ (msg.fromSelf) ? "sender" : "recieved"}`}>
+              <div className="content">
+                <p>{msg.message}</p>
               </div>
             </div>
-          )
-        })
-      }
-      </ChatMessages>
-    
-      <ChatInput handleSendMsg={handleSendMsg} />
+          </div>
+        )
+      })
+    }
+    </ChatMessages>
+  
+    <ChatInput handleSendMsg={handleSendMsg} />
     </>
   );
 }
@@ -81,7 +81,6 @@ height: 11%;
  }
  .user-name{
   color:white;
-  margin-left: 10px;
  }
 `
 const ChatMessages = styled.div`

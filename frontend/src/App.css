@@ -10,9 +10,19 @@
   width: 15px;
   border-radius: 10px;
 }
+.chat-messages::-webkit-scrollbar {
+  background: #393053;
+  width: 15px;
+  border-radius: 10px;
+}
 
 .contacts::-webkit-scrollbar-thumb {
-  background: #d6cbde66;
-  height: 30px;
+  background: #786e8b;
+  width: 16px;
+  border-radius: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #786e8b;;
   border-radius: 10px;
 }
