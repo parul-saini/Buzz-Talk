@@ -54,14 +54,14 @@ function ChatContainer({ currentUser, currentChat, socket }) {
     <>
       <ChatHeader className="row user-details bg-dark d-flex user-details p-1 align-items-center m-0">
         <Col className="avatar" sm="1">
-          {/* <img src={`data:image/svg+xml;base64,${currentChat.avatar}`} alt="avatar" /> */}
+          {/* <img src={`data:image/svg+xml;base64,${currentChat.avataarImage}`} alt="avatar" /> */}
           <img
             src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
             className="rounded-circle"
             alt="avatar"
           />
         </Col>
-        <Col className="user-name text-capitalize" sm="11">
+        <Col className="user-name text-capitalize" sm="11"> 
           <h3> {currentChat.userName}</h3>
         </Col>
       </ChatHeader>
@@ -69,7 +69,15 @@ function ChatContainer({ currentUser, currentChat, socket }) {
       <ChatMessages className="chat-messages me-0 ms-0">
         {messages.map((msg) => {
           return (
-            <div ref={scrollRef} key={uuidv4()}>
+            <div ref={scrollRef} key={uuidv4()} className={`${!msg.fromSelf ? "d-flex":""}`}>
+            {
+              !(msg.fromSelf) &&
+            <img
+            // src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
+            src={`data:image/svg+xml;base64,${currentChat.avataarImage}`}
+            className="rounded-circle align-self-center me-1 " style={{width:"35px",height:"35px"}}
+            alt="avatar"
+          />}
               <div
                 className={`message ${msg.fromSelf ? "sender" : "recieved"}`}
               >
@@ -116,7 +124,7 @@ const ChatMessages = styled.div`
     display: flex;
     align-items: center;
     .content {
-      max-width: 40%;
+      // max-width: 40%;
       overflow-wrap: break-word;
       padding: 0.5rem 1rem;
       font-size: 1.1rem;
