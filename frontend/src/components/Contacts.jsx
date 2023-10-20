@@ -130,7 +130,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
       </div>
     </div>
     )} 
-    </>
+    </> 
   );
 }
 export default Contacts;
