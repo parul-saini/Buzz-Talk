@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import styled from 'styled-components';
 import {Link, useNavigate} from "react-router-dom";
-import logo from "../assests/logo.png"
+import logo from "../assests/1.png"
 import { Row, Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -93,9 +93,9 @@ function Register() {
 
   return (
     <>
-      <div className="container-register" style={{}}>
+      <div className="container-register row" >
       
-        <Row>
+      
           <Col lg="5" s="12">
             <div className="brandName" style={{
               height:" 100vh",
@@ -130,17 +130,17 @@ function Register() {
               <Form.Control type="password" placeholder="Confirm Password" name='confirmPassword' onChange={(e)=>{handleChange(e)}}/>
             </Form.Group>
     
-            <Button  style={{ backgroundColor: '#017dc0', color: 'white' }} variant="primary" type="submit">
+            <Button  className='forbtn' variant="primary" type="submit">
               Create User  
             </Button>
             <p className='m-2'>  Already have an account ? <Link to="/login">Login</Link> </p>
           </Form>
           
           </Col>
-        </Row>
-        <ToastContainer />
+        
        
       </div>
+        <ToastContainer />
     </>
   )
 }

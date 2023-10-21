@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assests/logo.png";
 import Logout from "./Logout";
 import styled from 'styled-components'
 import '../App.css';
@@ -37,7 +36,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
         width: "90%",
         height: "93%",
         // background: "#d6cbde",
-        background: "rgb(248 243 251)",
+        // background: "rgb(248 243 251)",
         borderRadius: "17px",
         border: "1px solid rgba(74, 74, 74, 0.51)",
       }}
@@ -54,8 +53,8 @@ function Contacts({ contacts, currentUser, changeChat }) {
         <p
           className="col m-0 text-capitalize"
           style={{
-            color: "black",
-            fontFamily: "Roboto",
+            color: "white",
+            fontFamily: "sans-serif",
             fontSize: "30px",
             fontStyle: "normal",
             fontWeight: "700",
@@ -73,7 +72,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
           height: "80vh",
         }}
       >
-        <p style={{fontSize: "22px", fontWeight: "700"}}>Messages</p>
+        <p style={{fontSize: "22px", fontWeight: "700",color: "white"}}>Messages</p>
         {contacts.map((contact, index) => {
           return (
             <div
@@ -112,14 +111,14 @@ function Contacts({ contacts, currentUser, changeChat }) {
                 />
               <div className="col-9 text-capitalize text-start" style={{  fontSize: "20px",
                 fontWeight: "600",
-                color: "black" }}>
+                color: "white" }}>
                 {contact.userName}
               </div>
 
               <div
                 className="line col-1"
                 style={{
-                  background: "rgba(0, 0, 0, 0.17)",
+                  background: "rgb(92 90 90 / 33%)",
                   height: "1px",
                   width: "100%",
                 }}

@@ -22,8 +22,12 @@ function Logout() {
 const LogoutBtn = styled.div`
     display:contents;
     cursor:pointer;
+    svg{
+      color:white;
+    }
     path{
         stroke-width:3;
+        stroke: white;
     }
    
 `

@@ -1,3 +1,6 @@
+*{
+  font-family: cursive;
+}
  /* styles.css (external) or within a styled component */
  .contacts {
   overflow: auto;
@@ -25,4 +28,18 @@
 .chat-messages::-webkit-scrollbar-thumb {
   background: #786e8b;;
   border-radius: 10px;
+}
+
+/* for login register page */
+.forbtn{
+  background-color: rgb(57 48 83);
+  color: white;
+  border: none;
+  width: 20%;
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+.forbtn:hover{
+  background-color: rgb(57 48 83);
 }

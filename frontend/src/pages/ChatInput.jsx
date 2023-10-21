@@ -35,9 +35,10 @@ const ChatInput = ({ handleSendMsg }) => {
       handleSendMsg(msg);
       setMsg("");
     }
-    const handleKeyPress=(e)=>{
-        if(e.code === "Enter") sendChat(e);
-    }  };
+  };
+  const handleKeyPress=(e)=>{
+    if(e.code === "Enter") sendChat(e);
+  }  
 
   return (
     <Container className="button-container row m-0">
@@ -54,7 +55,7 @@ const ChatInput = ({ handleSendMsg }) => {
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
         />
-        <Button 
+        <Button
           className="sendBtn"
           variant="outline-secondary"
           id="button-addon2"
@@ -77,7 +78,7 @@ const Container = styled.div`
     svg {
       font-size: 2rem;
       cursor: pointer;
-      color: #806f0c;
+      color:#ffd700ab;
       margin-right: 10px;
       margin-top: 6px;
     }
@@ -95,7 +96,7 @@ const Container = styled.div`
     aside {
       position: absolute;
       bottom: 58px;
-      background: #393053;
+      background: #282a36;
       .epr-search-container {
         input {
           background: transparent;

@@ -37,6 +37,7 @@ const Chat = () => {
       socket.current.emit("add-user",currentUser._id)
     }
   }, [currentUser]);
+
   useEffect(() => {
     (async () => {
       if (currentUser) {
@@ -58,7 +59,7 @@ const Chat = () => {
     "margin-right": "0px",
     "margin-left": "0 !important",
     'height': '100vh',
-    'background': '#d6cbde'
+    'background': 'rgb(120 110 139)'
   };
 
   return (

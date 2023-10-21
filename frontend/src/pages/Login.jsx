@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import {Link, useNavigate} from "react-router-dom";
-import logo from "../assests/logo.png"
+import logo from "../assests/1.png"
 import { Row, Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -102,7 +102,7 @@ function Login() {
               <Form.Control type="password" placeholder="Password" value={values.password} name='password'  onChange={(e)=>{handleChange(e)}}/>
             </Form.Group>
     
-            <Button  style={{ backgroundColor: '#017dc0', color: 'white' }} variant="primary" type="submit">
+            <Button  className='forbtn'  variant="primary" type="submit">
               Login
             </Button>
             <p className='m-2'> Don't have an account ? <Link to="/register">Register</Link> </p>

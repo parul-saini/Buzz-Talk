@@ -37,6 +37,7 @@ function ChatContainer({ currentUser, currentChat, socket }) {
     msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
   };
+  
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
@@ -44,16 +45,19 @@ function ChatContainer({ currentUser, currentChat, socket }) {
       });
     }
   }, []);
+
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, [messages]);
+
   return (
     <>
       <ChatHeader className="row user-details bg-dark d-flex user-details p-1 align-items-center m-0">
-        <Col className="avatar" sm="1">
+        <Col className="avatar pe-0" sm="1">
           {/* <img src={`data:image/svg+xml;base64,${currentChat.avataarImage}`} alt="avatar" /> */}
           <img
             src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
@@ -115,7 +119,6 @@ const ChatHeader = styled.div`
   }
   .user-name {
     color: white;
-    margin-left: 10px;
   }
 `;
 const ChatMessages = styled.div`
@@ -125,12 +128,12 @@ const ChatMessages = styled.div`
   overflow: auto;
   gap: 1rem;
   padding: 1rem;
-  background: #d6cbde;
+  background:   #282a36;   //#d6cbde;
   .message {
     display: flex;
     align-items: center;
     .content {
-      // max-width: 40%;
+     // max-width: 40%;
       overflow-wrap: break-word;
       padding: 0.5rem 1rem;
       font-size: 1.1rem;
@@ -142,7 +145,8 @@ const ChatMessages = styled.div`
     justify-content: flex-end;
     .content {
       ${"" /* background:#443C68; */}
-      background:#443c68cc;
+      ${'' /* background:#443c68cc; */}
+      background:#473a5e;
     }
   }
   .recieved {
