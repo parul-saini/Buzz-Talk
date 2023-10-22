@@ -25,8 +25,6 @@ function Contacts({ contacts, currentUser, changeChat }) {
     "height": "80vh",
   }
  
-
-
   return (
     <>
     {currentUserName && currentUserImage && (
