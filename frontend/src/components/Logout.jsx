@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'
-import {GrLogout} from 'react-icons/gr'
+import {GrPower} from 'react-icons/gr'
 import { Button } from 'react-bootstrap';
+
+
 function Logout() {
     const navigate =useNavigate();
     const handleClick=()=>{
@@ -9,8 +12,24 @@ function Logout() {
         navigate('/login');
     }
   return (
-    <Button className='btn-danger' onClick={handleClick}><GrLogout style={{fontSize:"30px"}}/></Button>
+    <LogoutBtn>
+    <GrPower className="col-2" title='LogOut'  onClick={handleClick} 
+    style={{fontSize:"25px"}}/>
+    </LogoutBtn> 
   )
 }
+
+const LogoutBtn = styled.div`
+    display:contents;
+    cursor:pointer;
+    svg{
+      color:white;
+    }
+    path{
+        stroke-width:3;
+        stroke: white;
+    }
+   
+`
 
 export default Logout

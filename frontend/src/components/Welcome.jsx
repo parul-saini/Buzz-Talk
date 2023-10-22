@@ -9,14 +9,14 @@ function Welcome({ currentUser }) {
       setCurrentUserName(currentUser.userName);
     }
   }, [currentUser]);
-  return (
-    <div className="align-content-around d-flex justify-content-center pe-0 ">
 
-    <div className=" d-flex flex-column text-center">
-        <img src={hiGif} alt="Welcome"/>
-      <h1>Welcome {currentUserName}</h1>
-      <h3>Please select a chat to Start Messaging</h3>
-    </div>
+  return (
+    <div className="align-content-around d-flex justify-content-center pe-0 " style={{height:"100vh"}}>
+      <div className=" d-flex flex-column text-center justify-content-center align-items-center" style={{color: "#240303",fontWeight:" bold"}}>
+          <img src={hiGif} alt="Welcome"/>
+        <h1>Welcome {currentUserName}</h1>
+        <p style={{fontSize: "2rem" }}>Please select a chat to Start Messaging</p>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { allUserRouter } from "../utils/ApiRoutes";
+import { allUserRouter,host } from "../utils/ApiRoutes";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import ChatContainer from "./ChatContainer";
+// socket
+import { io } from "socket.io-client";
+import { useRef } from "react";
+
 const Chat = () => {
+  const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
@@ -25,6 +30,14 @@ const Chat = () => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (currentUser) {
+      socket.current=io(host);
+      socket.current.emit("add-user",currentUser._id)
+    }
+  }, [currentUser]);
+
   useEffect(() => {
     (async () => {
       if (currentUser) {
@@ -32,34 +45,42 @@ const Chat = () => {
           const data = await axios.get(`${allUserRouter}/${currentUser._id}`);
           // console.log(data);
           setContacts(data.data);
-        } 
-        else navigate("/setavatar");
+        } else navigate("/setavatar");
       }
     })();
   }, [currentUser]);
   //console.log("contact",contacts)
 
   const handleChatChange = (chat) => {
-    // console.log(chat);
     setCurrentChat(chat);
   };
+
+  const customStyles = {
+    "margin-right": "0px",
+    "margin-left": "0 !important",
+    'height': '100vh',
+    'background': 'rgb(120 110 139)'
+  };
+
   return (
-    <div className=" bg-black text-white">
-      <div className="row" style={{ height: "100vh", width: "100vw" }}>
-        <div className="col-md-3 pe-0 overflow: auto; height: 200px;">
-          <Contacts
-            contacts={contacts}
-            currentUser={currentUser}
-            changeChat={handleChatChange}
-          />
-        </div>
-        <div className=" col-md-9  pe-0">
-          {
-            currentChat===undefined? 
-            <Welcome currentUser={currentUser} />:
-            <ChatContainer currentChat={currentChat}/>
-          }
-        </div>
+    <div className="row gx-0 ms-0" style={{ height: "100vh", width: "100vw" }}>
+      <div
+        className="col-md-3 pe-0 d-flex"
+        style={{ borderRight: "1px solid white", background: " #212529" }}
+      >
+        {/* <div className="col-md-3 pe-0 overflow: auto; height: 200px;"> */}
+        <Contacts
+          contacts={contacts}
+          currentUser={currentUser}
+          changeChat={handleChatChange}
+        />
+      </div>
+      <div className="col-md-9 pe-0 " style={customStyles}>
+        {currentChat === undefined ? (
+          <Welcome currentUser={currentUser} />
+        ) : (
+          <ChatContainer currentUser={currentUser} currentChat={currentChat} socket={socket}/>
+        )}
       </div>
     </div>
   );
