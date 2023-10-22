@@ -25,8 +25,6 @@ const Chat = () => {
       }
     })();
   }, []);
-
-
   useEffect(() => {
     (async () => {
       if (currentUser) {
@@ -61,7 +59,6 @@ const Chat = () => {
             <Welcome currentUser={currentUser} />:
             <ChatContainer currentChat={currentChat}/>
           }
-
         </div>
       </div>
     </div>
