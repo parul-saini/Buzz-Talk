@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 // import styled from 'styled-components';
 import {Link, useNavigate} from "react-router-dom";
 import logo from "../assests/1.png"
-import { Row, Col} from 'react-bootstrap';
+import { Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
@@ -48,7 +48,7 @@ function Register() {
   const handleEvent= async(event)=>{
     event.preventDefault();
     if(handleValidation()) {
-      const {userName,email,password,confirmPassword} = values;
+      const {userName,email,password} = values;
       const {data} = await axios.post(registerRouter,{
         userName,
         email,
@@ -93,7 +93,7 @@ function Register() {
 
   return (
     <>
-      <div className="container-register row" >
+      <div className="container-register row m-0" >
       
       
           <Col lg="5" s="12">

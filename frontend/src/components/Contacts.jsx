@@ -45,7 +45,6 @@ function Contacts({ contacts, currentUser, changeChat }) {
       <div className="row d-flex align-items-center pt-2 m-0 pb-4 sticky-top ">
         <img
           src={`data:image/svg+xml;base64,${currentUserImage}`}
-          // src="https://i.pinimg.com/236x/92/0b/4f/920b4f49d139b0b575b53a5e21a9f979.jpg"
           className="rounded-circle p-0 col-1"
           alt="Avatar"
           style={{ width: "50px", height: "50px" }}
@@ -103,8 +102,8 @@ function Contacts({ contacts, currentUser, changeChat }) {
               )}
 
               <img
-                src="https://i.pinimg.com/236x/0f/b4/7e/0fb47e9ffdf8b3ac3561265fdb038f8a.jpg"
-                // src={`data:image/svg+xml;base64,${contact.avataarImage}`}
+                // src="https://i.pinimg.com/236x/0f/b4/7e/0fb47e9ffdf8b3ac3561265fdb038f8a.jpg"
+                src={`data:image/svg+xml;base64,${contact.avataarImage}`}
                 className="rounded-circle col-1 p-0"
                 alt="Avatar"
                 style={{ width: "50px", height: "50px" }}

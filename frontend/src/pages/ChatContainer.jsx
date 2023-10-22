@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useRef } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import ChatInput from "./ChatInput";
 import { sendMessagesRouter, getALLMessagesRouter } from "../utils/ApiRoutes";
 import axios from "axios";
@@ -60,7 +60,7 @@ function ChatContainer({ currentUser, currentChat, socket }) {
         <Col className="avatar pe-0" sm="1">
           {/* <img src={`data:image/svg+xml;base64,${currentChat.avataarImage}`} alt="avatar" /> */}
           <img
-            src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
+           src={`data:image/svg+xml;base64,${currentChat.avataarImage}`}
             className="rounded-circle"
             alt="avatar"
           />
