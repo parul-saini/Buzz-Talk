@@ -1,4 +1,4 @@
-export const host = "http://localhost:9000";
+export const host = "https://buzztalk-504l.onrender.com";
 
 // user routes
 export const registerRouter = `${host}/api/auth/register`;
