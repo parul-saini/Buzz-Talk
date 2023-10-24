@@ -107,8 +107,7 @@ function Contacts({ contacts, currentUser, changeChat }) {
                 style={{ width: "50px", height: "50px" }}
                 />
               <div className="col-9 text-capitalize text-start" style={{  fontSize: "20px",
-                fontWeight: "600",
-                color: "white" }}>
+                color: "white" ,...(index===currentSelected?{fontWeight:"600"}:"")}}>
                 {contact.userName}
               </div>
 

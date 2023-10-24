@@ -91,7 +91,7 @@ const Container = styled.div`
       box-shadow: none;
     }
     ::placeholder {
-      color: white;
+      color: #b0b0b0;
     }
     aside {
       position: absolute;
