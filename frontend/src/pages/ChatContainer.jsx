@@ -1,15 +1,30 @@
 import React, { useEffect, useState,useRef } from "react";
 import { Col } from "react-bootstrap";
 import ChatInput from "./ChatInput";
-import { sendMessagesRouter, getALLMessagesRouter } from "../utils/ApiRoutes";
+import { sendMessagesRouter, getALLMessagesRouter ,deleteMessageRouter} from "../utils/ApiRoutes";
 import axios from "axios";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function ChatContainer({ currentUser, currentChat, socket }) {
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const scrollRef = useRef();
+
+   // CSS of toast 
+   const toastCSS = {
+    position:"top-right",
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  }
+
   useEffect(() => {
     if (currentChat) {
       (async () => {
@@ -22,22 +37,27 @@ function ChatContainer({ currentUser, currentChat, socket }) {
     }
   }, [currentChat]);
 
-  const handleSendMsg = async (msg) => {
-    await axios.post(sendMessagesRouter, {
-      from: currentUser._id,
-      to: currentChat._id,
-      message: msg,
-    });
+
+  const setNewMessage=async(res,msg)=>{
+    const msgs = [...messages];
+    msgs.push({ fromSelf: true, message: msg, id: res.data.msgId });
+    setMessages(msgs);
     socket.current.emit("send-msg", {
       to: currentChat._id,
       from: currentUser._id,
       message: msg,
     });
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
+  }
+  const handleSendMsg = async(msg) => {
+    const res =  await axios.post(sendMessagesRouter, {
+      from: currentUser._id,
+      to: currentChat._id,
+      message: msg,
+    });
+    const msgs = await setNewMessage(res,msg);
+    
   };
-  
+
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
@@ -53,6 +73,20 @@ function ChatContainer({ currentUser, currentChat, socket }) {
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, [messages]);
+
+  const handleDelete= async(id)=>{
+    const res = await axios.delete(deleteMessageRouter,{data:{id:id}});
+    if(res.data.status){
+      const response = await axios.post(getALLMessagesRouter, {
+        from: currentUser._id,
+        to: currentChat._id,
+      });
+      toast.warn(res.data.msg, toastCSS);
+      setMessages(response.data);
+    }
+    else
+      toast.error(res.data.msg,toastCSS);
+  }
 
   return (
     <>
@@ -73,33 +107,33 @@ function ChatContainer({ currentUser, currentChat, socket }) {
       <ChatMessages className="chat-messages me-0 ms-0">
         {messages.map((msg) => {
           return (
-            <div ref={scrollRef} key={uuidv4()} className={`d-flex ${msg.fromSelf ? "sender" : "recieved"}`}>
+          <div ref={scrollRef} key={uuidv4()} className={`d-flex ${msg.fromSelf ? "sender" : "recieved"}`}>
             {
-              !(msg.fromSelf) &&
+            !(msg.fromSelf) &&
             <img
-            // src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
             src={`data:image/svg+xml;base64,${currentChat.avataarImage}`}
             className="rounded-circle align-self-center me-1 " style={{width:"35px",height:"35px"}}
             alt="avatar"
-          />}
-              <div
-                className={`message ${msg.fromSelf ? "sender" : "recieved"}`}
-              >
-                <div className="content">
-                  <p className="m-0">{msg.message}</p>
-                </div>
+            />}
+            <div className={`message ${msg.fromSelf ? "sender" : "recieved"}`}>
+              { (msg.fromSelf)? <div className="delete">
+              <i class="fa-solid fa-trash" onClick={()=>handleDelete(msg.id)}></i> </div> : ""}
+              <div className="content">
+                <p className="m-0">{msg.message}</p>
               </div>
-             {msg.fromSelf && <img
+            </div>
+            {msg.fromSelf && <img
             // src="https://i.pinimg.com/236x/b4/b5/40/b4b5408801fdd5bc55749d6a102c759b.jpg"
             src={`data:image/svg+xml;base64,${currentUser.avataarImage}`}
             className="rounded-circle align-self-center ms-1 " style={{width:"35px",height:"35px"}}
             alt="avatar"
-          />}
-            </div>
+            />}
+          </div>
           );
         })}
       </ChatMessages>
       <ChatInput handleSendMsg={handleSendMsg} />
+      <ToastContainer />
     </>
   );
 }
@@ -139,6 +173,20 @@ const ChatMessages = styled.div`
       font-size: 1.1rem;
       border-radius: 1rem;
       color: white;
+    }
+    .delete{
+        .fa-solid{
+        color:transparent;
+        margin:6px;
+        }
+    }
+  }
+  .message:hover{
+    .delete{
+        .fa-solid{
+        color:white;
+        cursor:pointer
+        }
     }
   }
   .sender {
