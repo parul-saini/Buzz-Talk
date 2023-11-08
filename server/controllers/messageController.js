@@ -1,17 +1,20 @@
 const messageModel = require("../models/messageModel");
-const MessageModel = require("../models/messageModel");
+
+const { ObjectId } = require('mongodb');
+
+
 
 module.exports.addMessages = async(req,res,next)=>{
    try {
     const {from,to,message } = req.body;
-    const data  = await MessageModel.create({
+    const data  = await messageModel.create({
         message: {text: message},
         users:[from,to],
         sender: from
     });
-
-    if(data) return res.json({msg:"added the messages in database successfully!"});
-    else return res.json({msg:"failed to add the messages in database "});
+    const msg_id= data._id.toString();
+    if(data) return res.json({msgId:msg_id, msg:"added the messages in database successfully!"});
+    else return res.json({msgId:null , msg:"failed to add the messages in database "});
     
    } catch (error) {
      next(error);
@@ -31,13 +34,32 @@ module.exports.getAllMessages = async(req,res,next)=>{
     const projectMessage = allmessages.map((msg)=>{
         return{
           message: msg.message.text,
-          fromSelf: msg.sender.toString() === from
+          fromSelf: msg.sender.toString() === from,
+          id:msg._id.toString()
         }
     })
-
     return res.json(projectMessage);
 
   } catch (error) {
     next(error);
   }
 }
+
+module.exports.deleteMessage=async(req,res,next)=>{
+ try {
+  const {id} = req.body;
+  const result = await messageModel.deleteOne({"_id" : new ObjectId(id)});
+  if (result.deletedCount === 1) {
+    res.json({status:true,msg:"Successfully deleted Your message"})
+  } else {
+    res.json({status:false,msg:"Some error occurred! Try again"})
+  }
+ } 
+ catch (error) {
+  next(error);
+ }
+
+}
+
+
+

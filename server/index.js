@@ -29,6 +29,7 @@ const server = app.listen(process.env.PORT, () => {
   console.log(`server start at port ${process.env.PORT}`);
 });
 
+// making websocket connection
 const io = socket(server, {
   cors: {
     origin: process.env.Base_url,
