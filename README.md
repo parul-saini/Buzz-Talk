@@ -1,4 +1,5 @@
-# Buzz-Talk
+# Buzz-Talk 
+Demo link : <a href="https://buzztalk-buzztalk.netlify.app/" >https://buzztalk-buzztalk.netlify.app/</a>
 
 ○ Developed a real-time chat application using Socket.io enabling instant messaging and dynamic updates.
 Integrated secure user authentication by using bcrypt for password hashing, ensuring user data privacy.
